@@ -20,7 +20,7 @@
 int		ft_write(char **s, t_flags *flags, va_list ap)
 {
 	int count;
-
+	//write(1,"i",1);
 	if (**s == 'c')
 		count = imprim_c(s, flags, ap);
 	else if (**s == 's')
@@ -45,7 +45,7 @@ int		ft_write(char **s, t_flags *flags, va_list ap)
 */
 
 int		handle_gen(char **s, t_flags *flags)
-{
+{ 
 	if (**s == '-')
 		flags->minus = 1;
 	else if (**s == '0')
@@ -89,24 +89,27 @@ int		handle_width(char **s, t_flags *flags, va_list ap)
 int		handle_prec(char **s, t_flags *flags, va_list ap)
 {
 	int num;
+	int temp;
 
+	temp = flags->zero ? 1 : 0;
 	num = 0;
 	if (**s == '.')
 	{
+		flags->prec = 1;
 		flags->zero = 0;
 		(*s)++;
 		if (**s == '*')
 		{
-			flags->prec = 1;
 			num = va_arg(ap, int);
+			flags->zero = num < 0 && temp ? 1 : 0;
 			flags->precs = num;
 		}
 		else
 		{
 			if (!ft_isdigit(**s))
 				flags->pres = 1;
-			flags->prec = 1;
 			flags->precs = ft_atoi(*s);
+
 			*s += ft_sn((long)flags->precs, 0) - 1;
 		}
 		return (1);
@@ -117,10 +120,20 @@ int		handle_prec(char **s, t_flags *flags, va_list ap)
 /*
 **	handles the flags and starts the writing process
 */
+void printFlagss(t_flags *flags){
+	printf("zero: %i\n",flags->zero);
+	printf("minus: %i\n",flags->minus);
+	printf("prec: %i\n",flags->prec);
+	printf("precs: %i\n",flags->precs);
+	printf("pres: %i\n",flags->pres);
+	printf("width: %i\n",flags->width);
+	printf("spec: %i\n",flags->spec);
+	
+}
 
 int		handle_flags(char **s, va_list ap)
 {
-	int		count;
+	int		count = 0;
 	t_flags flags;
 
 	init_flags(&flags);
@@ -130,6 +143,10 @@ int		handle_flags(char **s, va_list ap)
 		if (flags.pres)
 			continue ;
 		(*s)++;
+		if(flags.precs && ft_atoi(*s))
+		{
+			(*s)++;
+		}
 	}
 	count = ft_write(s, &flags, ap);
 	return (count);

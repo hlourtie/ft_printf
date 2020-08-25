@@ -22,6 +22,7 @@ static char		*manage_zero_perc(t_flags *flags)
 	{
 		if (!(ret = (char *)malloc(sizeof(char) * (flags->width + 1))))
 			return (NULL);
+		ret[flags->width - 1]='\0';
 		while (i + 1 < flags->width)
 		{
 			ret[i] = '0';
@@ -40,7 +41,7 @@ int				imprim_perc(char **s, t_flags *flags)
 	char	*str;
 	int		count;
 
-	if (flags->zero && !flags->minus)
+	if ((flags->zero && !flags->minus) || (flags->prec && !flags->minus))
 		str = manage_zero_perc(flags);
 	else
 		str = "%";

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static void		opt(char *s1, char *s2, int option)
 {
@@ -30,26 +31,22 @@ char			*ft_strjoin_free(char *s1, char *s2, int option)
 	char	*ret;
 	size_t	len;
 	size_t	i;
+	size_t	lentwo;
 
 	if (!s1 || !s2)
 		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	if (!(ret = (char*)malloc(sizeof(char) * (len))))
 		return (NULL);
-	ret[len] = '\0';
-	i = 0;
-	while (i < ft_strlen(s1))
-	{
+	ret[len-1] = '\0';
+	i = -1;
+	len = ft_strlen(s1);
+	while (++i < len) 
 		ret[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (i < ft_strlen(s2))
-	{
-		ret[i + ft_strlen(s1)] = s2[i];
-		i++;
-	}
-	ret[i + ft_strlen(s1)] = '\0';
+	i = -1;
+	lentwo = ft_strlen(s2);
+	while (++i < lentwo)
+		ret[i + len] = s2[i];
 	opt(s1, s2, option);
 	return (ret);
 }

@@ -24,6 +24,7 @@ static char		*manage_zero_hex(char *str, t_flags *flags)
 	{
 		if (!(ret = (char *)malloc(sizeof(char) * (flags->width + 1))))
 			return (NULL);
+		ret[flags->width - size] = '\0';
 		while (i + size < flags->width)
 		{
 			ret[i] = '0';
@@ -50,7 +51,7 @@ char			*check_prec_hex(char *str, t_flags *f)
 	{
 		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - size))))
 			return (NULL);
-		bzero(ret, (size_t)(f->precs - size));
+		ft_bzero(ret, (size_t)(f->precs - size));
 		ret = (char*)ft_memset(ret, 48, (size_t)(f->precs - size));
 		ret[f->precs - size] = '\0';
 		ret = ft_strjoin_free(ret, str, 3);

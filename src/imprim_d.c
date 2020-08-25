@@ -29,7 +29,7 @@ static char		*manage_zero(long nbr, t_flags *flags)
 	{
 		if (!(ret = (char *)malloc(sizeof(char) * (flags->width + 1))))
 			return (NULL);
-		ret[0] = (nbr < 0 ? '-' : '0');
+		ret[0] = ( i ? '-' : '0');
 		if (ret[0] == '-')
 			nbr = -nbr;
 		while (i + size + 1 <= flags->width)
@@ -48,18 +48,28 @@ static char		*manage_zero(long nbr, t_flags *flags)
 /*
 **	function to deal with the precision requirements
 */
+//  void printFlags(t_flags *flags){
+// 	printf("zero: %i\n",flags->zero);
+// 	printf("minus: %i\n",flags->minus);
+// 	printf("prec: %i\n",flags->prec);
+// 	printf("precs: %i\n",flags->precs);
+// 	printf("pres: %i\n",flags->pres);
+// 	printf("width: %i\n",flags->width);
+// 	printf("spec: %i\n",flags->spec);
+	
+// }
 
 static char		*check_prec(long nbr, t_flags *f)
 {
 	char *temp;
 	char *ret;
-
+	
 	if (f->precs > ft_sn(nbr, 1))
 	{
 		temp = (nbr < 0 ? ft_itoa(-nbr) : ft_itoa(nbr));
 		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - ft_sn(nbr, 1)))))
-			return (NULL);
-		bzero(ret, (size_t)(f->precs - ft_sn(nbr, 1)));
+		 	return (NULL);
+		ft_bzero(ret, (size_t)(f->precs - ft_sn(nbr, 1)));
 		ret = (char*)ft_memset(ret, 48, (size_t)(f->precs - ft_sn(nbr, 1)));
 		ret[(f->precs - ft_sn(nbr, 1))] = '\0';
 		ret = ft_strjoin_free(ret, temp, 3);
@@ -78,9 +88,11 @@ static char		*check_prec(long nbr, t_flags *f)
 	return (ret);
 }
 
+
 /*
 **	Prints the ints and Doubles
 */
+
 
 int				imprim_d(char **s, t_flags *flags, va_list ap)
 {
@@ -91,6 +103,7 @@ int				imprim_d(char **s, t_flags *flags, va_list ap)
 
 	var = (long)va_arg(ap, int);
 	ret = (!var && flags->prec && !flags->precs ? "" : check_prec(var, flags));
+	
 	size = ft_strlen(ret);
 	count = flags->width > size ? flags->width : size;
 	if (flags->width > size)
@@ -101,6 +114,8 @@ int				imprim_d(char **s, t_flags *flags, va_list ap)
 	ft_strlen(ret) ? free(ret) : "";
 	return (count);
 }
+
+
 
 /*
 **	Print the unsigned ints.

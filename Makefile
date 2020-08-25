@@ -30,7 +30,8 @@ C_FILESLFT := inc/libft/ft_atoi.o\
 					inc/libft/ft_strlen.o\
 					inc/libft/ft_putstr_fd.o\
 					inc/libft/ft_substr.o\
-					inc/libft/ft_isdigit.o
+					inc/libft/ft_isdigit.o\
+					inc/libft/ft_bzero.o
 
 INC := inc/ft_printf.h
 LIBFT_PATH =  ./inc/libft

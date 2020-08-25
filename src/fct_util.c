@@ -12,6 +12,7 @@
 
 #include "../inc/libft/libft.h"
 #include "../inc/ft_printf.h"
+#include <stdio.h>
 
 /*
 **	initialise flags

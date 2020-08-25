@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
+#include <stdio.h>
 
 /*
 **	Prints single characters
