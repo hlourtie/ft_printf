@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 09:57:29 by hlourtie          #+#    #+#             */
-/*   Updated: 2019/11/23 13:30:55 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/09/12 11:38:36 by henrylourti      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include <stdlib.h>
-# include "./libft/libft.h"
+# include "libft.h"
 
 typedef struct	s_flags{
 	int zero;

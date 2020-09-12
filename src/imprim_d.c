@@ -88,10 +88,44 @@ static char		*check_prec(long nbr, t_flags *f)
 	return (ret);
 }
 
+void special_d(char *str, t_flags *flags)
+{
+	if(flags->zero && str[0]== '-'){
+		str[0] = '0';
+		ft_putchar_fd('-', 1);
+		(flags->width)--;
+	}
+	while ((flags->width)--)
+			if (flags->zero)
+				ft_putchar_fd('0', 1);
+			else
+				ft_putchar_fd(' ', 1);
+		if (flags->spec)
+			ft_putchar_fd(0, 1);
+		else
+			ft_putstr_fd(str, 1);
+}
 
 /*
 **	Prints the ints and Doubles
 */
+void	manage_width_d(char *str, t_flags *flags, int size)
+{
+	flags->width -= size;
+	if (flags->minus)
+	{
+		if (flags->spec)
+			ft_putchar_fd(0, 1);
+		else
+			ft_putstr_fd(str, 1);
+		while ((flags->width)--)
+			ft_putchar_fd(' ', 1);
+	}
+	else
+	{
+		special_d(str,flags);
+	}
+}
 
 
 int				imprim_d(char **s, t_flags *flags, va_list ap)
@@ -107,7 +141,7 @@ int				imprim_d(char **s, t_flags *flags, va_list ap)
 	size = ft_strlen(ret);
 	count = flags->width > size ? flags->width : size;
 	if (flags->width > size)
-		manage_width(ret, flags, size);
+		manage_width_d(ret, flags, size);
 	else
 		ft_putstr_fd(ret, 1);
 	s++;

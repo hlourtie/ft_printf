@@ -25,11 +25,13 @@ static int		size_result(unsigned long nbr)
 		nbr /= 16;
 		count++;
 	}
+	
 	return (count);
 }
 
-static char		*hex_this(unsigned long nbr, char c, int *count)
+static char		*hex_this(unsigned long nbr, char c)
 {
+	int 				count;
 	char				*base;
 	char				*ret;
 	int					i;
@@ -37,66 +39,64 @@ static char		*hex_this(unsigned long nbr, char c, int *count)
 	unsigned long		plop;
 
 	plop = nbr;
-	*count = size_result(plop);
-	if (!(ret = (char *)malloc(sizeof(char) * (*count + 1))))
+	count = size_result(plop);
+	//printf("count: %d\n", count);
+	if (!(ret = (char *)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
+	ret[count] = '\0';
 	base = (c == 'x' ? "0123456789abcdef" : "0123456789ABCDEF");
 	i = 0;
-	while (i < *count)
+	while (i < count)
 	{
 		res = plop % 16;
 		plop /= 16;
-		ret[*count - 1 - i] = base[res];
+		ret[count - (1 + i)] = base[res];
 		i++;
 	}
-	ret[*count] = '\0';
 	return (ret);
 }
 
 int				imprim_p(char **s, t_flags *flags, va_list ap)
 {
-	int					count;
 	unsigned long		ptr;
 	char				*str;
 	int					len;
 
 	ptr = va_arg(ap, unsigned long);
-	str = hex_this(ptr, 'x', &count);
+	str = hex_this(ptr, 'x');
+	//printf("str1 : %s\n", str);
 	str = check_prec_hex(str, flags);
+	//printf("str2 : %s\n", str);
 	str = ft_strjoin_free("0x", str, 2);
+	//printf("str3 : %s\n", str);
 	len = (long)ft_strlen(str);
-	count = flags->width > len ? flags->width : len;
 	if (flags->width > len)
 		manage_width(str, flags, (int)len);
 	else
 		ft_putstr_fd(str, 1);
 	s++;
 	free(str);
-	return (count);
+	return (flags->width > len ? flags->width : len);
 }
 
 int				imprim_x(char **s, t_flags *flags, va_list ap)
 {
 	unsigned long	val;
 	char			*str;
-	int				count;
 	int				len;
 
 	val = va_arg(ap, unsigned long);
 	if (val == 0 && flags->prec && !flags->precs)
 		str = "";
 	else
-	{
-		str = hex_this(val, **s, &count);
-		str = check_prec_hex(str, flags);
-	}
+		str = check_prec_hex(hex_this(val, **s), flags);
+	//printf("str here: %s\n", str);
 	len = ft_strlen(str);
-	count = flags->width > len ? flags->width : len;
 	if (flags->width > len)
 		manage_width(str, flags, len);
 	else
 		ft_putstr_fd(str, 1);
 	s++;
 	ft_strlen(str) ? free(str) : "";
-	return (count);
+	return (flags->width > len ? flags->width : len);
 }

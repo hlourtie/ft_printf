@@ -36,6 +36,8 @@ void	init_flags(t_flags *flags)
 void	manage_width(char *str, t_flags *flags, int size)
 {
 	flags->width -= size;
+	// printf("width : %d\n", flags->width);
+	// printf("str %s\n",str);
 	if (flags->minus)
 	{
 		if (flags->spec)
