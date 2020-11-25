@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   printf_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
+/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 14:34:58 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/23 18:34:52 by henrylourti      ###   ########.fr       */
+/*   Updated: 2020/11/25 19:10:38 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
-#include <stdio.h>
 
 /*
 **	compares the character and gets the right printing sequence
@@ -20,7 +19,6 @@
 int		ft_write(char **s, t_flags *flags, va_list ap)
 {
 	int count;
-	//write(1,"i",1);
 	if (**s == 'c')
 		count = imprim_c(s, flags, ap);
 	else if (**s == 's')
@@ -84,27 +82,23 @@ int		handle_width(char **s, t_flags *flags, va_list ap)
 }
 
 /*
-** Handle the precision flag and then adds the right value we need
+**	sets the precision in case there is a precision flag
 */
 
-int		handle_prec(char **s, t_flags *flags, va_list ap)
+static void	set_precision( int temp, char **s, t_flags *flags, va_list ap)
 {
 	int num;
-	int temp;
 
-	temp  = 0;
-	if (flags->zero) temp = 1;
 	num = 0;
-	if (**s == '.')
-	{
-		flags->prec = 1;
+	flags->prec = 1;
 		flags->zero = 0;
 		(*s)++;
 		if (**s == '*')
 		{
 			num = va_arg(ap, int);
 			flags->zero = 0;
-			if (num < 0 && temp) flags->zero = 1;
+			if (num < 0 && temp) 
+				flags->zero = 1;
 			flags->precs = num;
 		}
 		else
@@ -112,45 +106,25 @@ int		handle_prec(char **s, t_flags *flags, va_list ap)
 			if (!ft_isdigit(**s))
 				flags->pres = 1;
 			flags->precs = ft_atoi(*s);
-
 			*s += ft_sn((long)flags->precs, 0) - 1;
 		}
-		return (1);
-	}
-	return (0);
 }
 
 /*
-**	handles the flags and starts the writing process
+** Handle the precision flag and then adds the right value we need
 */
-void printFlagss(t_flags *flags){
-	printf("zero: %i\n",flags->zero);
-	printf("minus: %i\n",flags->minus);
-	printf("prec: %i\n",flags->prec);
-	printf("precs: %i\n",flags->precs);
-	printf("pres: %i\n",flags->pres);
-	printf("width: %i\n",flags->width);
-	printf("spec: %i\n",flags->spec);
-	
-}
 
-int		handle_flags(char **s, va_list ap)
+int		handle_prec(char **s, t_flags *flags, va_list ap)
 {
-	int		count = 0;
-	t_flags flags;
+	int temp;
 
-	init_flags(&flags);
-	while (handle_gen(s, &flags) || handle_width(s, &flags, ap)
-			|| handle_prec(s, &flags, ap))
+	temp  = 0;
+	if (flags->zero)
+		temp = 1;
+	if (**s == '.')
 	{
-		if (flags.pres)
-			continue ;
-		(*s)++;
-		if(flags.precs && ft_atoi(*s))
-		{
-			(*s)++;
-		}
+		set_precision(temp, s, flags, ap);
+		return (1);
 	}
-	count = ft_write(s, &flags, ap);
-	return (count);
+	return (0);
 }

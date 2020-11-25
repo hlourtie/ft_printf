@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   util_hex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
+/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 13:05:37 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/23 18:40:43 by henrylourti      ###   ########.fr       */
+/*   Updated: 2020/11/25 19:10:34 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
-#include <stdio.h>
 
 static char		*manage_zero_hex(char *str, t_flags *flags)
 {
@@ -41,15 +40,6 @@ static char		*manage_zero_hex(char *str, t_flags *flags)
 /*
 **	function to deal with the precision requirements for hexadecimals
 */
-void printFlags(t_flags *flags){
-	printf("zero: %i\n",flags->zero);
-	printf("minus: %i\n",flags->minus);
-	printf("prec: %i\n",flags->prec);
-	printf("precs: %i\n",flags->precs);
-	printf("pres: %i\n",flags->pres);
-	printf("width: %i\n",flags->width);
-	printf("spec: %i\n",flags->spec);
-}
 
 char			*check_prec_hex(char *str, t_flags *f)
 {
@@ -71,8 +61,8 @@ char			*check_prec_hex(char *str, t_flags *f)
 	else
 	{
 		ret = str;
-		if (f->zero && !f->minus) ret = manage_zero_hex(str,f);
-
+		if (f->zero && !f->minus)
+			ret = manage_zero_hex(str, f);
 	}
 	return (ret);
 }

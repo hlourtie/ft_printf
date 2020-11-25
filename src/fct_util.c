@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fct_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
+/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:08:04 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/23 17:58:36 by henrylourti      ###   ########.fr       */
+/*   Updated: 2020/11/25 19:10:44 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
-#include <stdio.h>
 
 /*
 **	initialise flags
@@ -35,8 +34,6 @@ void	init_flags(t_flags *flags)
 void	manage_width(char *str, t_flags *flags, int size)
 {
 	flags->width -= size;
-	// printf("width : %d\n", flags->width);
-	// printf("str %s\n",str);
 	if (flags->minus)
 	{
 		if (flags->spec)
@@ -61,7 +58,7 @@ void	manage_width(char *str, t_flags *flags, int size)
 }
 
 /*
-**	FT_SIZENUM renamed for norminette purpose
+**	FT_SIZENUM 
 */
 
 long	ft_sn(long nbr, long pres)
@@ -79,4 +76,36 @@ long	ft_sn(long nbr, long pres)
 		nbr /= 10;
 	}
 	return (count);
+}
+
+/*
+**	Manages special cases for decimals
+*/
+
+void	special_d(char *str, t_flags *flags)
+{
+	if(flags->zero && str[0]== '-'){
+		str[0] = '0';
+		ft_putchar_fd('-', 1);
+		(flags->width)--;
+	}
+	while ((flags->width)--)
+			if (flags->zero)
+				ft_putchar_fd('0', 1);
+			else
+				ft_putchar_fd(' ', 1);
+		if (flags->spec)
+			ft_putchar_fd(0, 1);
+		else
+			ft_putstr_fd(str, 1);
+}
+
+/*
+**	Manages the return value following the precision rules
+*/
+
+char	*manage_return(t_flags *f, long nbr){
+	if (f->zero && !f->minus && !f->prec)
+		return (manage_zero(nbr, f));
+	return (ft_itoa(nbr));
 }

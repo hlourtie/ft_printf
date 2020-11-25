@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   imprim_d.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
+/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:47:20 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/24 17:06:27 by henrylourti      ###   ########.fr       */
+/*   Updated: 2020/11/25 18:31:17 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,6 @@ static char		*manage_zero(long nbr, t_flags *flags)
 	return (ret);
 }
 
-/*
-**	function to deal with the precision requirements
-*/
-//  void printFlags(t_flags *flags){
-// 	printf("zero: %i\n",flags->zero);
-// 	printf("minus: %i\n",flags->minus);
-// 	printf("prec: %i\n",flags->prec);
-// 	printf("precs: %i\n",flags->precs);
-// 	printf("pres: %i\n",flags->pres);
-// 	printf("width: %i\n",flags->width);
-// 	printf("spec: %i\n",flags->spec);
-	
-// }
-char *manage_return(t_flags *f, long nbr){
-	if (f->zero && !f->minus && !f->prec) return manage_zero(nbr, f);
-	return ft_itoa(nbr);
-}
-
 static char		*check_prec(long nbr, t_flags *f)
 {
 	char *temp;
@@ -93,28 +75,12 @@ static char		*check_prec(long nbr, t_flags *f)
 	return (ret);
 }
 
-void special_d(char *str, t_flags *flags)
-{
-	if(flags->zero && str[0]== '-'){
-		str[0] = '0';
-		ft_putchar_fd('-', 1);
-		(flags->width)--;
-	}
-	while ((flags->width)--)
-			if (flags->zero)
-				ft_putchar_fd('0', 1);
-			else
-				ft_putchar_fd(' ', 1);
-		if (flags->spec)
-			ft_putchar_fd(0, 1);
-		else
-			ft_putstr_fd(str, 1);
-}
 
 /*
 **	Prints the ints and Doubles
 */
-void	manage_width_d(char *str, t_flags *flags, int size)
+
+void		manage_width_d(char *str, t_flags *flags, int size)
 {
 	flags->width -= size;
 	if (flags->minus)
@@ -142,20 +108,21 @@ int				imprim_d(char **s, t_flags *flags, va_list ap)
 
 	var = (long)va_arg(ap, int);
 	ret = check_prec(var, flags);
-	if (!var && flags->prec && !flags->precs) ret = "";
+	if (!var && flags->prec && !flags->precs)
+		ret = "";
 	size = ft_strlen(ret);
 	count = size;
-	if (flags->width > size) count = flags->width;
+	if (flags->width > size) 
+		count = flags->width;
 	if (flags->width > size)
 		manage_width_d(ret, flags, size);
 	else
 		ft_putstr_fd(ret, 1);
 	s++;
-	if (ft_strlen(ret)) free(ret);
+	if (ft_strlen(ret))
+		free(ret);
 	return (count);
 }
-
-
 
 /*
 **	Print the unsigned ints.
@@ -169,17 +136,21 @@ int				imprim_u(char **s, t_flags *flags, va_list ap)
 	char	*ret;
 
 	var = (long)va_arg(ap, unsigned int);
-	if (var < 0) var = 4294967296 + var;
+	if (var < 0)
+		var = 4294967296 + var;
 	ret = check_prec(var, flags);
-	if (!var && flags->prec && !flags->precs) ret = "" ;
+	if (!var && flags->prec && !flags->precs)
+		ret = "" ;
 	size = ft_strlen(ret);
 	count = size;
-	if (flags->width > size) count = flags->width;
+	if (flags->width > size)
+		count = flags->width;
 	if (flags->width > size)
 		manage_width(ret, flags, size);
 	else
 		ft_putstr_fd(ret, 1);
 	s++;
-	if (ft_strlen(ret)) free(ret);
+	if (ft_strlen(ret))
+		free(ret);
 	return (count);
 }

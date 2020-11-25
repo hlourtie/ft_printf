@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   imprim_hex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
+/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:22:52 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/23 18:27:27 by henrylourti      ###   ########.fr       */
+/*   Updated: 2020/11/25 19:08:18 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
-#include <stdio.h>
 
 static int		size_result(unsigned long nbr)
 {
@@ -25,7 +24,6 @@ static int		size_result(unsigned long nbr)
 		nbr /= 16;
 		count++;
 	}
-	
 	return (count);
 }
 
@@ -36,21 +34,19 @@ static char		*hex_this(unsigned long nbr, char c)
 	char				*ret;
 	int					i;
 	int					res;
-	unsigned long		plop;
 
-	plop = nbr;
-	count = size_result(plop);
-	//printf("count: %d\n", count);
+	count = size_result(nbr);
 	if (!(ret = (char *)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	ret[count] = '\0';
 	base = "0123456789ABCDEF";
-	if (c == 'x') base = "0123456789abcdef";
+	if (c == 'x')
+		base = "0123456789abcdef";
 	i = 0;
 	while (i < count)
 	{
-		res = plop % 16;
-		plop /= 16;
+		res = nbr % 16;
+		nbr /= 16;
 		ret[count - (1 + i)] = base[res];
 		i++;
 	}
@@ -65,11 +61,8 @@ int				imprim_p(char **s, t_flags *flags, va_list ap)
 
 	ptr = va_arg(ap, unsigned long);
 	str = hex_this(ptr, 'x');
-	//printf("str1 : %s\n", str);
 	str = check_prec_hex(str, flags);
-	//printf("str2 : %s\n", str);
 	str = ft_strjoin_free("0x", str, 2);
-	//printf("str3 : %s\n", str);
 	len = (long)ft_strlen(str);
 	if (flags->width > len)
 		manage_width(str, flags, (int)len);
@@ -77,7 +70,8 @@ int				imprim_p(char **s, t_flags *flags, va_list ap)
 		ft_putstr_fd(str, 1);
 	s++;
 	free(str);
-	if (flags->width > len) return (flags->width);
+	if (flags->width > len)
+		return (flags->width);
 	return (len);
 }
 
@@ -98,7 +92,9 @@ int				imprim_x(char **s, t_flags *flags, va_list ap)
 	else
 		ft_putstr_fd(str, 1);
 	s++;
-	if (ft_strlen(str)) free(str);
-	if(flags->width > len) return (flags->width);
+	if (ft_strlen(str))
+		free(str);
+	if (flags->width > len)
+		return (flags->width);
 	return (len);
 }

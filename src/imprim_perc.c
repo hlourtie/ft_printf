@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   imprim_perc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
+/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 13:52:27 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/23 18:28:18 by henrylourti      ###   ########.fr       */
+/*   Updated: 2020/11/25 19:09:24 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char		*manage_zero_perc(t_flags *flags)
 	{
 		if (!(ret = (char *)malloc(sizeof(char) * (flags->width + 1))))
 			return (NULL);
-		ret[flags->width - 1]='\0';
+		ret[flags->width - 1] = '\0';
 		while (i + 1 < flags->width)
 		{
 			ret[i] = '0';
@@ -47,7 +47,8 @@ int				imprim_perc(char **s, t_flags *flags)
 		str = "%";
 	size = ft_strlen(str);
 	count = size;
-	if (flags->width > size) count = flags->width;
+	if (flags->width > size)
+		count = flags->width;
 	if (flags->width > size)
 		manage_width(str, flags, size);
 	else

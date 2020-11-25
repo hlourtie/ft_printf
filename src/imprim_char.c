@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   imprim_char.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
+/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:43:18 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/23 17:54:43 by henrylourti      ###   ########.fr       */
+/*   Updated: 2020/11/25 18:20:12 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int			imprim_c(char **s, t_flags *flags, va_list ap)
 	c[0] = (char)va_arg(ap, int);
 	c[1] = '\0';
 	count = 1;
-	if (flags->width) count = flags->width;
+	if (flags->width)
+		count = flags->width;
 	if (flags->width > 1)
 	{
 		if (c[0] == 0)
@@ -74,7 +75,8 @@ int			imprim_s(char **s, t_flags *flags, va_list ap)
 	str = precis_s(str, flags);
 	size = ft_strlen(str);
 	count = size;
-	if (flags->width > size) count = flags->width;
+	if (flags->width > size)
+		count = flags->width;
 	if (flags->width > size)
 		manage_width(str, flags, size);
 	else
