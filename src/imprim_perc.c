@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   imprim_perc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 13:52:27 by hlourtie          #+#    #+#             */
-/*   Updated: 2019/11/29 19:37:34 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/23 18:28:18 by henrylourti      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int				imprim_perc(char **s, t_flags *flags)
 	else
 		str = "%";
 	size = ft_strlen(str);
-	count = flags->width > size ? flags->width : size;
+	count = size;
+	if (flags->width > size) count = flags->width;
 	if (flags->width > size)
 		manage_width(str, flags, size);
 	else

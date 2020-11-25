@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   imprim_hex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:22:52 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/02/01 18:17:30 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/23 18:27:27 by henrylourti      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static char		*hex_this(unsigned long nbr, char c)
 	if (!(ret = (char *)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	ret[count] = '\0';
-	base = (c == 'x' ? "0123456789abcdef" : "0123456789ABCDEF");
+	base = "0123456789ABCDEF";
+	if (c == 'x') base = "0123456789abcdef";
 	i = 0;
 	while (i < count)
 	{
@@ -76,7 +77,8 @@ int				imprim_p(char **s, t_flags *flags, va_list ap)
 		ft_putstr_fd(str, 1);
 	s++;
 	free(str);
-	return (flags->width > len ? flags->width : len);
+	if (flags->width > len) return (flags->width);
+	return (len);
 }
 
 int				imprim_x(char **s, t_flags *flags, va_list ap)
@@ -90,13 +92,13 @@ int				imprim_x(char **s, t_flags *flags, va_list ap)
 		str = "";
 	else
 		str = check_prec_hex(hex_this(val, **s), flags);
-	//printf("str here: %s\n", str);
 	len = ft_strlen(str);
 	if (flags->width > len)
 		manage_width(str, flags, len);
 	else
 		ft_putstr_fd(str, 1);
 	s++;
-	ft_strlen(str) ? free(str) : "";
-	return (flags->width > len ? flags->width : len);
+	if (ft_strlen(str)) free(str);
+	if(flags->width > len) return (flags->width);
+	return (len);
 }

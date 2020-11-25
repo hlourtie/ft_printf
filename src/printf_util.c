@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 14:34:58 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/02/01 18:17:08 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/23 18:34:52 by henrylourti      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int		handle_width(char **s, t_flags *flags, va_list ap)
 			width = va_arg(ap, int);
 			if (width < 0)
 				flags->minus = 1;
-			flags->width = (width < 0 ? -width : width);
+			flags->width = width;
+			if (width < 0) flags->width = -width;
 		}
 		else
 		{
@@ -91,7 +92,8 @@ int		handle_prec(char **s, t_flags *flags, va_list ap)
 	int num;
 	int temp;
 
-	temp = flags->zero ? 1 : 0;
+	temp  = 0;
+	if (flags->zero) temp = 1;
 	num = 0;
 	if (**s == '.')
 	{
@@ -101,7 +103,8 @@ int		handle_prec(char **s, t_flags *flags, va_list ap)
 		if (**s == '*')
 		{
 			num = va_arg(ap, int);
-			flags->zero = num < 0 && temp ? 1 : 0;
+			flags->zero = 0;
+			if (num < 0 && temp) flags->zero = 1;
 			flags->precs = num;
 		}
 		else

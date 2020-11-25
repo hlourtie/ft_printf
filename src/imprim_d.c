@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   imprim_d.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:47:20 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/02/01 18:16:21 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/24 17:06:27 by henrylourti      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ static char		*manage_zero(long nbr, t_flags *flags)
 	long i;
 	char *ret;
 
-	i = (nbr < 0 ? 1 : 0);
+	i = 0;
+	if (nbr < 0) i = 1;
 	size = ft_sn(nbr, 1);
 	if (flags->width > size + 1)
 	{
 		if (!(ret = (char *)malloc(sizeof(char) * (flags->width + 1))))
 			return (NULL);
-		ret[0] = ( i ? '-' : '0');
-		if (ret[0] == '-')
-			nbr = -nbr;
+		ret[0] = '0';
+		if (i) ret[0] = '-';
+		if (ret[0] == '-') nbr = -nbr;
 		while (i + size + 1 <= flags->width)
 		{
 			ret[i] = '0';
@@ -58,6 +59,10 @@ static char		*manage_zero(long nbr, t_flags *flags)
 // 	printf("spec: %i\n",flags->spec);
 	
 // }
+char *manage_return(t_flags *f, long nbr){
+	if (f->zero && !f->minus && !f->prec) return manage_zero(nbr, f);
+	return ft_itoa(nbr);
+}
 
 static char		*check_prec(long nbr, t_flags *f)
 {
@@ -66,7 +71,8 @@ static char		*check_prec(long nbr, t_flags *f)
 	
 	if (f->precs > ft_sn(nbr, 1))
 	{
-		temp = (nbr < 0 ? ft_itoa(-nbr) : ft_itoa(nbr));
+		temp = ft_itoa(nbr);
+		if (nbr < 0) temp = ft_itoa(-nbr);
 		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - ft_sn(nbr, 1)))))
 		 	return (NULL);
 		ft_bzero(ret, (size_t)(f->precs - ft_sn(nbr, 1)));
@@ -83,8 +89,7 @@ static char		*check_prec(long nbr, t_flags *f)
 		}
 	}
 	else
-		ret = (f->zero && !f->minus && !f->prec ? manage_zero(nbr, f)
-			: ft_itoa(nbr));
+		ret =  manage_return(f, nbr);
 	return (ret);
 }
 
@@ -136,16 +141,17 @@ int				imprim_d(char **s, t_flags *flags, va_list ap)
 	char	*ret;
 
 	var = (long)va_arg(ap, int);
-	ret = (!var && flags->prec && !flags->precs ? "" : check_prec(var, flags));
-	
+	ret = check_prec(var, flags);
+	if (!var && flags->prec && !flags->precs) ret = "";
 	size = ft_strlen(ret);
-	count = flags->width > size ? flags->width : size;
+	count = size;
+	if (flags->width > size) count = flags->width;
 	if (flags->width > size)
 		manage_width_d(ret, flags, size);
 	else
 		ft_putstr_fd(ret, 1);
 	s++;
-	ft_strlen(ret) ? free(ret) : "";
+	if (ft_strlen(ret)) free(ret);
 	return (count);
 }
 
@@ -163,15 +169,17 @@ int				imprim_u(char **s, t_flags *flags, va_list ap)
 	char	*ret;
 
 	var = (long)va_arg(ap, unsigned int);
-	var = (var < 0 ? 4294967296 + var : var);
-	ret = (!var && flags->prec && !flags->precs ? "" : check_prec(var, flags));
+	if (var < 0) var = 4294967296 + var;
+	ret = check_prec(var, flags);
+	if (!var && flags->prec && !flags->precs) ret = "" ;
 	size = ft_strlen(ret);
-	count = flags->width > size ? flags->width : size;
+	count = size;
+	if (flags->width > size) count = flags->width;
 	if (flags->width > size)
 		manage_width(ret, flags, size);
 	else
 		ft_putstr_fd(ret, 1);
 	s++;
-	ft_strlen(ret) ? free(ret) : "";
+	if (ft_strlen(ret)) free(ret);
 	return (count);
 }

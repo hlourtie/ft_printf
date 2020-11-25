@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util_hex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 13:05:37 by hlourtie          #+#    #+#             */
-/*   Updated: 2019/11/29 19:20:32 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/23 18:40:43 by henrylourti      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,54 +51,28 @@ void printFlags(t_flags *flags){
 	printf("spec: %i\n",flags->spec);
 }
 
-// char *thisshit(int x)
-// {
-// 	int i;
-// 	char *ret;
-
-// 	if (!(ret = (char *)malloc(sizeof(char) * x )))
-// 			return (NULL);
-// 	i = 0;
-// 	while(i<x){
-// 		ret[i] = '0'
-// 	}
-
-// }
-
 char			*check_prec_hex(char *str, t_flags *f)
 {
 	char	*ret;
 	int		size;
 	int		i;
 
-	//printFlags(f);
 	size = ft_strlen(str);
-	// printf("str: %s and size %d\n", str,size);
 	if (f->precs > size)
 	{
 		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - size))))
 			return (NULL);
-		printf("before %s\n", str);
 		ret[f->precs - size] = '\0';
-		printf("after ret set %s\n", str);
-		//ft_bzero(ret, (size_t)(f->precs - size));
 		i = -1;
 		while (++i < (f->precs - size))
-		{
-			printf("after %d %s\n", i,str);
 			ret[i] = '\0';
-		}
-		printf("after %s\n", str);
-		// problem is in this mem set
-		i = -1;
-		while (++i < (f->precs - size))
-			ret[i] = '0';
-		//ret[f->precs - size] = '\0';
-		//printf("%s\n", str);
 		ret = ft_strjoin_free(ret, str, 3);
-		//printf("%s\n", ret);
 	}
 	else
-		ret = (f->zero && !f->minus ? manage_zero_hex(str, f) : str);
+	{
+		ret = str;
+		if (f->zero && !f->minus) ret = manage_zero_hex(str,f);
+
+	}
 	return (ret);
 }

@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   fct_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: henrylourtie <henrylourtie@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:08:04 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/02/01 18:14:15 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/23 17:58:36 by henrylourti      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft/libft.h"
 #include "../inc/ft_printf.h"
 #include <stdio.h>
 
@@ -69,7 +68,9 @@ long	ft_sn(long nbr, long pres)
 {
 	long count;
 
-	count = ((!pres && (nbr < 0)) ? 1 : 0);
+	count = 0;
+	if (!pres && (nbr < 0))
+		count = 1;
 	if (nbr == 0)
 		return (1);
 	while (nbr)
