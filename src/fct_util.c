@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:08:04 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 12:01:16 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 12:15:26 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	special_d(char *str, t_flags *flags)
 **	Manages the return value following the precision rules
 */
 
-char	*manage_return(t_flags *f, long nbr){
+char	*manage_return(t_flags *f, long nbr)
+{
 	if (f->zero && !f->minus && !f->prec)
 		return (manage_zero(nbr, f));
 	return (ft_itoa(nbr));

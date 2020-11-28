@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:47:20 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 12:10:03 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 12:24:13 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,17 @@ static char		*check_prec(long nbr, t_flags *f)
 {
 	char *temp;
 	char *ret;
-	
+
 	if (f->precs > ft_sn(nbr, 1))
 	{
 		temp = ft_itoa(nbr);
-		if (nbr < 0) 
+		if (nbr < 0)
+		{
+			free(temp);
 			temp = ft_itoa(-nbr);
+		}
 		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - ft_sn(nbr, 1)))))
-		 	return (NULL);
+			return (NULL);
 		ft_bzero(ret, (size_t)(f->precs - ft_sn(nbr, 1)));
 		ret = (char*)ft_memset(ret, 48, (size_t)(f->precs - ft_sn(nbr, 1)));
 		ret[(f->precs - ft_sn(nbr, 1))] = '\0';
@@ -96,7 +99,7 @@ void		manage_width_d(char *str, t_flags *flags, int size)
 	}
 	else
 	{
-		special_d(str,flags);
+		special_d(str, flags);
 	}
 }
 
@@ -113,7 +116,7 @@ int				imprim_d(char **s, t_flags *flags, va_list ap)
 		ret = "";
 	size = ft_strlen(ret);
 	count = size;
-	if (flags->width > size) 
+	if (flags->width > size)
 		count = flags->width;
 	if (flags->width > size)
 		manage_width_d(ret, flags, size);
