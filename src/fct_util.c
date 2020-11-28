@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:08:04 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/25 19:10:44 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/25 19:18:00 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	manage_width(char *str, t_flags *flags, int size)
 }
 
 /*
-**	FT_SIZENUM 
+**	FT_SIZENUM
 */
 
 long	ft_sn(long nbr, long pres)
@@ -84,20 +84,22 @@ long	ft_sn(long nbr, long pres)
 
 void	special_d(char *str, t_flags *flags)
 {
-	if(flags->zero && str[0]== '-'){
+	if (flags->zero && str[0] == '-'){
 		str[0] = '0';
 		ft_putchar_fd('-', 1);
 		(flags->width)--;
 	}
 	while ((flags->width)--)
-			if (flags->zero)
+	{
+		if (flags->zero)
 				ft_putchar_fd('0', 1);
-			else
-				ft_putchar_fd(' ', 1);
+		else
+			ft_putchar_fd(' ', 1);
 		if (flags->spec)
 			ft_putchar_fd(0, 1);
 		else
 			ft_putstr_fd(str, 1);
+	}
 }
 
 /*

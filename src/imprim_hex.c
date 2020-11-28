@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:22:52 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/25 19:08:18 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 11:46:28 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		size_result(unsigned long nbr)
 
 static char		*hex_this(unsigned long nbr, char c)
 {
-	int 				count;
+	int					count;
 	char				*base;
 	char				*ret;
 	int					i;

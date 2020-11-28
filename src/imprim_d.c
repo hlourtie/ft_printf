@@ -6,16 +6,18 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:47:20 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/25 18:31:17 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/26 08:31:28 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
-#include <stdio.h>
+
 
 /*
 **	Places the zeros where they need to be
 */
+
+
 
 static char		*manage_zero(long nbr, t_flags *flags)
 {
@@ -23,16 +25,20 @@ static char		*manage_zero(long nbr, t_flags *flags)
 	long i;
 	char *ret;
 
+	
 	i = 0;
-	if (nbr < 0) i = 1;
 	size = ft_sn(nbr, 1);
 	if (flags->width > size + 1)
 	{
 		if (!(ret = (char *)malloc(sizeof(char) * (flags->width + 1))))
 			return (NULL);
 		ret[0] = '0';
-		if (i) ret[0] = '-';
-		if (ret[0] == '-') nbr = -nbr;
+		if (nbr < 0)
+		{
+			ret[0] = '-';
+			nbr = -nbr;
+			i = 1;
+		}
 		while (i + size + 1 <= flags->width)
 		{
 			ret[i] = '0';

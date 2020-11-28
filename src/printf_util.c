@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 14:34:58 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/25 19:10:38 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 11:53:23 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 int		ft_write(char **s, t_flags *flags, va_list ap)
 {
 	int count;
+
 	if (**s == 'c')
 		count = imprim_c(s, flags, ap);
 	else if (**s == 's')
@@ -43,7 +44,7 @@ int		ft_write(char **s, t_flags *flags, va_list ap)
 */
 
 int		handle_gen(char **s, t_flags *flags)
-{ 
+{
 	if (**s == '-')
 		flags->minus = 1;
 	else if (**s == '0')
@@ -59,17 +60,16 @@ int		handle_gen(char **s, t_flags *flags)
 
 int		handle_width(char **s, t_flags *flags, va_list ap)
 {
-	int width;
-
 	if ((ft_atoi(*s) > 0 || **s == '*') && flags->width == 0)
 	{
 		if (**s == '*')
 		{
-			width = va_arg(ap, int);
-			if (width < 0)
+			flags->width = va_arg(ap, int);
+			if (flags->width < 0)
+			{
+				flags->width = -(flags->width);
 				flags->minus = 1;
-			flags->width = width;
-			if (width < 0) flags->width = -width;
+			}
 		}
 		else
 		{
@@ -91,23 +91,23 @@ static void	set_precision( int temp, char **s, t_flags *flags, va_list ap)
 
 	num = 0;
 	flags->prec = 1;
+	flags->zero = 0;
+	(*s)++;
+	if (**s == '*')
+	{
+		num = va_arg(ap, int);
 		flags->zero = 0;
-		(*s)++;
-		if (**s == '*')
-		{
-			num = va_arg(ap, int);
-			flags->zero = 0;
-			if (num < 0 && temp) 
-				flags->zero = 1;
-			flags->precs = num;
-		}
-		else
-		{
-			if (!ft_isdigit(**s))
-				flags->pres = 1;
-			flags->precs = ft_atoi(*s);
-			*s += ft_sn((long)flags->precs, 0) - 1;
-		}
+		if (num < 0 && temp)
+			flags->zero = 1;
+		flags->precs = num;
+	}
+	else
+	{
+		if (!ft_isdigit(**s))
+			flags->pres = 1;
+		flags->precs = ft_atoi(*s);
+		*s += ft_sn((long)flags->precs, 0) - 1;
+	}
 }
 
 /*
@@ -118,7 +118,7 @@ int		handle_prec(char **s, t_flags *flags, va_list ap)
 {
 	int temp;
 
-	temp  = 0;
+	temp = 0;
 	if (flags->zero)
 		temp = 1;
 	if (**s == '.')
