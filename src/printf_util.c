@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 14:34:58 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 12:02:49 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 12:52:39 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				ft_write(char **s, t_flags *flags, va_list ap)
 **	handles the general flags minus and zero
 */
 
-int		handle_gen(char **s, t_flags *flags)
+int			handle_gen(char **s, t_flags *flags)
 {
 	if (**s == '-')
 		flags->minus = 1;
