@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 13:05:37 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 11:54:00 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 22:02:29 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char			*check_prec_hex(char *str, t_flags *f)
 		ret[f->precs - size] = '\0';
 		i = -1;
 		while (++i < (f->precs - size))
-			ret[i] = '\0';
+			ret[i] = '0';
 		ret = ft_strjoin_free(ret, str, 3);
 	}
 	else

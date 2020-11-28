@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:08:04 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 12:15:26 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 22:35:27 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ void	special_d(char *str, t_flags *flags)
 			ft_putchar_fd('0', 1);
 		else
 			ft_putchar_fd(' ', 1);
-		if (flags->spec)
-			ft_putchar_fd(0, 1);
-		else
-			ft_putstr_fd(str, 1);
 	}
+	if (flags->spec)
+		ft_putchar_fd(0, 1);
+	else
+		ft_putstr_fd(str, 1);
 }
 
 /*

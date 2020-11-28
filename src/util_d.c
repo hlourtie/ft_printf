@@ -6,13 +6,13 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 12:44:34 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 12:50:43 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 19:12:38 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-char		*manage_exta_size(long nbr, t_flags *flags, long size)
+char		*manage_extra_size(long nbr, t_flags *flags, long size)
 {
 	long	i;
 	char	*ret;

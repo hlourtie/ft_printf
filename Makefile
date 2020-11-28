@@ -6,7 +6,7 @@
 #    By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 11:09:20 by hlourtie          #+#    #+#              #
-#    Updated: 2020/11/25 18:16:07 by hlourtie         ###   ########.fr        #
+#    Updated: 2020/11/28 20:56:08 by hlourtie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ BUILDOBJS 	:= $(addprefix $(BUILDDIR), $(SRCNAMES:.c=.o))
 LIBDIR		:= ./libft/
 LIBFT 		:= ./libft/libft.a
 LIBINC		:= ./libft/inc/
+LIBNAMES	:= $(shell ls $(LIBDIR)| grep -E ".+\.c")
+LIBOBJ		:= $(addprefix $(LIBDIR), $(LIBNAMES:.c=.o))
 
 # Optimization and Compiler flags and commands
 CC = gcc
@@ -42,7 +44,8 @@ $(BUILDDIR)%.o:$(SRCDIR)%.c
 	$(CC) $(CFLAGS) -I$(LIBINC) -I$(INC) -o $@ -c $<
 # Project file rule
 $(NAME): $(BUILDOBJS)
-	ar rcs $(NAME) $(BUILDOBJS)
+	ar rcs $(NAME) $(BUILDOBJS) $(LIBOBJ) $(LIBFT)
+	ranlib $(NAME)
 
 # Libft rule
 $(LIBFT):

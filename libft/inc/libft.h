@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:38:57 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 12:56:04 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 19:11:32 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 char			*ft_strjoin_free(char *s1, char *s2, int option);
 char			*ft_strndup(const char *word, size_t size);
-char			*ft_itoa_absolute(int nbr);
+char			*ft_itoa_absolute(long nbr);
 #endif
