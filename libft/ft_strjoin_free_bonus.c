@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 15:07:13 by hlourtie          #+#    #+#             */
-/*   Updated: 2019/11/23 14:10:56 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 12:59:47 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ char			*ft_strjoin_free(char *s1, char *s2, int option)
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	if (!(ret = (char*)malloc(sizeof(char) * (len))))
 		return (NULL);
-	ret[len-1] = '\0';
+	ret[len - 1] = '\0';
 	i = -1;
 	len = ft_strlen(s1);
-	while (++i < len) 
+	while (++i < len)
 		ret[i] = s1[i];
 	i = -1;
 	lentwo = ft_strlen(s2);
