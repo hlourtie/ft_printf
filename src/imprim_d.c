@@ -6,26 +6,22 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 15:47:20 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/26 08:31:28 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 12:10:03 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_printf.h"
 
-
 /*
 **	Places the zeros where they need to be
 */
 
-
-
 static char		*manage_zero(long nbr, t_flags *flags)
 {
-	long size;
-	long i;
-	char *ret;
+	long	size;
+	long	i;
+	char	*ret;
 
-	
 	i = 0;
 	size = ft_sn(nbr, 1);
 	if (flags->width > size + 1)
@@ -60,7 +56,8 @@ static char		*check_prec(long nbr, t_flags *f)
 	if (f->precs > ft_sn(nbr, 1))
 	{
 		temp = ft_itoa(nbr);
-		if (nbr < 0) temp = ft_itoa(-nbr);
+		if (nbr < 0) 
+			temp = ft_itoa(-nbr);
 		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - ft_sn(nbr, 1)))))
 		 	return (NULL);
 		ft_bzero(ret, (size_t)(f->precs - ft_sn(nbr, 1)));
@@ -80,7 +77,6 @@ static char		*check_prec(long nbr, t_flags *f)
 		ret =  manage_return(f, nbr);
 	return (ret);
 }
-
 
 /*
 **	Prints the ints and Doubles
@@ -103,7 +99,6 @@ void		manage_width_d(char *str, t_flags *flags, int size)
 		special_d(str,flags);
 	}
 }
-
 
 int				imprim_d(char **s, t_flags *flags, va_list ap)
 {
@@ -146,7 +141,7 @@ int				imprim_u(char **s, t_flags *flags, va_list ap)
 		var = 4294967296 + var;
 	ret = check_prec(var, flags);
 	if (!var && flags->prec && !flags->precs)
-		ret = "" ;
+		ret = "";
 	size = ft_strlen(ret);
 	count = size;
 	if (flags->width > size)

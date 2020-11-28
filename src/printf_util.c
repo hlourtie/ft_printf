@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 14:34:58 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 11:53:23 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 12:02:49 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	compares the character and gets the right printing sequence
 */
 
-int		ft_write(char **s, t_flags *flags, va_list ap)
+int				ft_write(char **s, t_flags *flags, va_list ap)
 {
 	int count;
 
@@ -58,7 +58,7 @@ int		handle_gen(char **s, t_flags *flags)
 ** handles the general width of what is supposed to be printed
 */
 
-int		handle_width(char **s, t_flags *flags, va_list ap)
+int				handle_width(char **s, t_flags *flags, va_list ap)
 {
 	if ((ft_atoi(*s) > 0 || **s == '*') && flags->width == 0)
 	{
@@ -85,7 +85,7 @@ int		handle_width(char **s, t_flags *flags, va_list ap)
 **	sets the precision in case there is a precision flag
 */
 
-static void	set_precision( int temp, char **s, t_flags *flags, va_list ap)
+static void		set_precision(int temp, char **s, t_flags *flags, va_list ap)
 {
 	int num;
 
@@ -114,7 +114,7 @@ static void	set_precision( int temp, char **s, t_flags *flags, va_list ap)
 ** Handle the precision flag and then adds the right value we need
 */
 
-int		handle_prec(char **s, t_flags *flags, va_list ap)
+int				handle_prec(char **s, t_flags *flags, va_list ap)
 {
 	int temp;
 

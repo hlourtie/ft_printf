@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:08:04 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/25 19:18:00 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/28 12:01:16 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ long	ft_sn(long nbr, long pres)
 
 void	special_d(char *str, t_flags *flags)
 {
-	if (flags->zero && str[0] == '-'){
+	if (flags->zero && str[0] == '-')
+	{
 		str[0] = '0';
 		ft_putchar_fd('-', 1);
 		(flags->width)--;
@@ -92,7 +93,7 @@ void	special_d(char *str, t_flags *flags)
 	while ((flags->width)--)
 	{
 		if (flags->zero)
-				ft_putchar_fd('0', 1);
+			ft_putchar_fd('0', 1);
 		else
 			ft_putchar_fd(' ', 1);
 		if (flags->spec)
