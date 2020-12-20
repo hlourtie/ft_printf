@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 12:44:34 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 19:12:38 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/12/20 14:55:39 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char		*check_prec(long nbr, t_flags *f)
 	if (f->precs > ft_sn(nbr, 1))
 	{
 		temp = ft_itoa_absolute(nbr);
-		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - ft_sn(nbr, 1)))))
+		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - ft_sn(nbr, 1)) + 1)))
 			return (NULL);
 		ft_bzero(ret, (size_t)(f->precs - ft_sn(nbr, 1)));
 		ret = (char*)ft_memset(ret, 48, (size_t)(f->precs - ft_sn(nbr, 1)));

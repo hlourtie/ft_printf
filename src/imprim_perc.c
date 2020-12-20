@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 13:52:27 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/25 19:09:24 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/29 09:48:37 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ int				imprim_perc(char **s, t_flags *flags)
 	else
 		ft_putstr_fd(str, 1);
 	s++;
+	if (size != 1)
+		free(str); 
 	return (count);
 }

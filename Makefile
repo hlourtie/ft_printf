@@ -6,7 +6,7 @@
 #    By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 11:09:20 by hlourtie          #+#    #+#              #
-#    Updated: 2020/11/28 20:56:08 by hlourtie         ###   ########.fr        #
+#    Updated: 2020/12/20 11:35:38 by hlourtie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,11 @@ $(BUILDDIR):
 # Objects rule
 $(BUILDDIR)%.o:$(SRCDIR)%.c
 	$(CC) $(CFLAGS) -I$(LIBINC) -I$(INC) -o $@ -c $<
-# Project file rule
+
+# Printf rule
 $(NAME): $(BUILDOBJS)
 	ar rcs $(NAME) $(BUILDOBJS) $(LIBOBJ) $(LIBFT)
-	ranlib $(NAME)
+	#ranlib $(NAME)
 
 # Libft rule
 $(LIBFT):
@@ -63,6 +64,9 @@ fclean: clean
 
 # Do both of the above
 re: fclean all
+
+# Empty bonus
+bonus: $(BUILDDIR) $(LIBFT) $(NAME)
 
 # Just in case those files exist in the root dir
 .PHONY: all fclean clean re

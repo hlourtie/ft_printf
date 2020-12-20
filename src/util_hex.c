@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 13:05:37 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 22:02:29 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/11/29 09:17:41 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char			*check_prec_hex(char *str, t_flags *f)
 	size = ft_strlen(str);
 	if (f->precs > size)
 	{
-		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - size))))
+		if (!(ret = (char *)malloc(sizeof(char) * (f->precs - size + 1))))
 			return (NULL);
 		ret[f->precs - size] = '\0';
 		i = -1;
