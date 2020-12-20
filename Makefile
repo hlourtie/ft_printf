@@ -6,7 +6,7 @@
 #    By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 11:09:20 by hlourtie          #+#    #+#              #
-#    Updated: 2020/12/20 11:35:38 by hlourtie         ###   ########.fr        #
+#    Updated: 2020/12/20 20:15:53 by hlourtie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ $(BUILDDIR)%.o:$(SRCDIR)%.c
 # Printf rule
 $(NAME): $(BUILDOBJS)
 	ar rcs $(NAME) $(BUILDOBJS) $(LIBOBJ) $(LIBFT)
-	#ranlib $(NAME)
 
 # Libft rule
 $(LIBFT):
