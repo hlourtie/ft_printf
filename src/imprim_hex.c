@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:22:52 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/28 22:23:06 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/12/20 20:10:53 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,6 @@ int				imprim_p(char **s, t_flags *flags, va_list ap)
 	return (len);
 }
 
-void printflags(t_flags *flags){
-	printf("zero is : %d\n", flags->zero);
-	printf("minus is : %d\n", flags->minus);
-	printf("prec is : %d\n", flags->prec);
-	printf("precs is : %d\n", flags->precs);
-	printf("pres is : %d\n", flags->pres);
-	printf("width is : %d\n", flags->width);
-	printf("spec is : %d\n", flags->spec);
-}
-
 int				imprim_x(char **s, t_flags *flags, va_list ap)
 {
 	unsigned long	val;
@@ -97,7 +87,6 @@ int				imprim_x(char **s, t_flags *flags, va_list ap)
 	else
 		str = check_prec_hex(hex_this(val, **s), flags);
 	len = ft_strlen(str);
-	//printflags(flags);
 	if (flags->width > len)
 		manage_width(str, flags, len);
 	else

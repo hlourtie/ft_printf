@@ -6,7 +6,7 @@
 /*   By: hlourtie <hlourtie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 15:07:13 by hlourtie          #+#    #+#             */
-/*   Updated: 2020/11/29 09:18:33 by hlourtie         ###   ########.fr       */
+/*   Updated: 2020/12/20 20:08:29 by hlourtie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char			*ft_strjoin_free(char *s1, char *s2, int option)
 	lentwo = ft_strlen(s2);
 	while (++i < lentwo)
 		ret[i + len] = s2[i];
-	
 	opt(s1, s2, option);
 	return (ret);
 }
